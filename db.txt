@@ -1,0 +1,30 @@
+CREATE TABLE customer (
+  id NUMBER(10) NOT NULL ,
+  first_name varchar2(45) DEFAULT NULL,
+  last_name varchar2(45) DEFAULT NULL,
+  email varchar(45) DEFAULT NULL,
+  CONSTRAINT "CUSTOMER_ID_PK" PRIMARY KEY (id) ENABLE
+)
+commit;
+
+create SEQUENCE id_sequence;
+
+commit;
+
+create or replace trigger id_on_insert
+before insert on customer
+for each row
+begin
+select id_sequence.nextval
+into :new.id
+from dual;
+end;
+
+commit;
+
+Insert into HR.CUSTOMER (ID,FIRST_NAME,MIDDLE_NAME,LAST_NAME,AGE,GENDER) values (1,'Vishwas','Parvataraj','Meti',32,'M');
+Insert into HR.CUSTOMER (ID,FIRST_NAME,MIDDLE_NAME,LAST_NAME,AGE,GENDER) values (48,'Thomas',null,'Benjamin',35,'M');
+Insert into HR.CUSTOMER (ID,FIRST_NAME,MIDDLE_NAME,LAST_NAME,AGE,GENDER) values (49,'Simmy','Rose','Joseph',32,'F');
+Insert into HR.CUSTOMER (ID,FIRST_NAME,MIDDLE_NAME,LAST_NAME,AGE,GENDER) values (50,'Fahid','Sayed','Zulfikar',32,'M');
+
+commit;
